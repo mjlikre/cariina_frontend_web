@@ -1,33 +1,17 @@
 import React from 'react'
 import requireAuth from "../hoc/requireAuth"
-
+import MainContainer from "../Components/MainContainer"
+import PageHeader from "../Components/PageHeader"
 const Main = (props) => {
     return (
-        <div>
-            hello
-        </div>
+        <PageHeader>
+            <MainContainer/>
+
+        </PageHeader>
+       
     )
 }
 
 
 export default requireAuth(Main)
 
-// import React, {useEffect} from 'react'
-// import { connect } from 'react-redux'
-// import { test } from "../actions"
-// export const Main = (props) => {
-//     useEffect(()=> {
-//         props.test()
-//     }, [])
-//     return (
-//         <div>
-//             hello
-//         </div>
-//     )
-// }
-
-
-
-
-
-// export default connect(null, {test})(Main)

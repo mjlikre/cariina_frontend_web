@@ -6,3 +6,4 @@ export const FILLED_FORM = "FILLED_FORM";
 export const EDIT_FORM = "EDIT_FORM";
 export const GET_ALL_FORM = "GET_ALL_FORM";
 export const FORM_ERROR = "FORM_ERROR";
+export const DELETE_FORM = "DELETE_FORM";

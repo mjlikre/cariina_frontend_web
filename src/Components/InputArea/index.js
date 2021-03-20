@@ -11,7 +11,7 @@ const InputArea = (props) => {
       <label className="col-md-12">{props.label}</label>
       <input
         className="col-md-12 kjga-input-box"
-        type="number"
+        type="text"
         autoComplete="off"
         value={props.val}
         onChange={(e) => {props.change(e)}}
