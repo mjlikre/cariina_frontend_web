@@ -1,16 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { makeForm, getAllForm, deleteForm } from "../../actions/forms";
+import { makeForm, getAllForm, deleteForm, clearForm } from "../../actions/forms";
 import FormBuilder from "../FormBuilder";
-import deteleIcon from "../../delete.png"
-import editIcon from "../../edit.png"
-import Modal from "../Modal/Modal"
-export const MainContainer = ({ makeForm, getAllForm, allForms, deleteForm }) => {
+import deteleIcon from "../../delete.png";
+import editIcon from "../../edit.png";
+import Modal from "../Modal/Modal";
+import Notification from "../Notification/Notification";
+export const MainContainer = ({
+  makeForm,
+  getAllForm,
+  allForms,
+  deleteForm,
+  clearForm
+}) => {
+  const [deleteConfirm, setDeleteConfirm] = useState(false);
+  const [formToDelete, setToDelete] = useState("");
   const [formToEdit, setFformToEdit] = useState(false);
   const [showModal, setShowModal] = useState(false)
   const [link, setLink] = useState("")
+  const [notif, setNotif] = useState([null, null]);
   useEffect(() => {
     getAllForm();
+    clearForm()
   }, []);
 
   const renderForm = () => {
@@ -29,7 +40,8 @@ export const MainContainer = ({ makeForm, getAllForm, allForms, deleteForm }) =>
               setFformToEdit(form);
             }}><img src = {editIcon} className = "big-icon-img"/></button>
               <button className = "delete-button-big" onClick={() => {
-              deleteForm(form.form_id);
+              setToDelete(form.form_id);
+              setDeleteConfirm(true)
             }}><img src = {deteleIcon} className = "big-icon-img"/></button>
             </div>
             
@@ -67,25 +79,44 @@ export const MainContainer = ({ makeForm, getAllForm, allForms, deleteForm }) =>
         </>
       ) : (
         <>
+         
+          <div className="form-table">
           <button
-            className="create-form"
+            className="form-display"
             onClick={() => {
               makeForm();
             }}
           >
             Crete a New Form
           </button>
-          <div className="form-table">{renderForm()}</div>
+            {renderForm()}</div>
         </>
       )}
+      <Modal
+        message="Are you sure you want to delete this form?"
+        show={deleteConfirm}
+        setShow={() => {
+          setDeleteConfirm(false);
+        }}
+        title="Confirmation"
+        confirmFunction={() => {
+          deleteForm(
+            formToDelete,
+            setNotif(["You've successfully deleted a form", "Form Deleted"])
+          );
+        }}
+      />
       <Modal message = {link} show = {showModal} setShow = {()=> {setShowModal(false)}} />
-      
+      <Notification data={notif} />
     </div>
   );
 };
 const mapStateToProps = ({ forms }) => ({
   allForms: forms.allForms,
 });
-export default connect(mapStateToProps, { makeForm, getAllForm, deleteForm })(
-  MainContainer
-);
+export default connect(mapStateToProps, {
+  makeForm,
+  getAllForm,
+  deleteForm,
+  clearForm
+})(MainContainer);

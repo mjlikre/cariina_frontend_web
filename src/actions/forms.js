@@ -96,9 +96,25 @@ export const fillForm = (data, done) => async (dispatch) => {
     }
   }
 };
+export const getFormToFill = (data, done) => async (dispatch) => {
+  try {
+    const res = await axios.get(`http://localhost:3001/api/forms/getfill/${data}`);
+    dispatch({ type: GET_FORM, payload: res.data.data });
+    if (done) {
+      done();
+    }
+  } catch (error) {
+    if (!helperFunction(error, dispatch)) {
+      dispatch({
+        type: FORM_ERROR,
+        payload: "something went wrong, try again in a little bit",
+      });
+    }
+  }
+};
 export const getOneForm = (data, done) => async (dispatch) => {
   try {
-    const res = await axios.get(`http://localhost:3001/api/forms/get/${data}`);
+    const res = await axios.get(`http://localhost:3001/api/forms/getedit/${data}`,  { headers: { authorization: localStorage.getItem("token") } });
     dispatch({ type: GET_FORM, payload: res.data.data });
     if (done) {
       done();
@@ -133,9 +149,9 @@ export const editForm = (data, done) => async (dispatch) => {
   }
 };
 
-export const fetchFilledForm = (done) => async (dispatch) => {
+export const fetchFilledForm = (data, done) => async (dispatch) => {
   try {
-    const res = await axios.get(`http://localhost:3001/api/forms/filled`, {
+    const res = await axios.get(`http://localhost:3001/api/forms/filled/${data}`, {
       headers: { authorization: localStorage.getItem("token") },
     });
     if (done) done();
@@ -165,4 +181,7 @@ export const deleteForm = (data, done) => async(dispatch)=> {
       });
     }
   }
+}
+export const clearForm = (done) => async (dispatch) => {
+  dispatch({type: GET_FORM, payload: null})
 }

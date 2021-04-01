@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 
-/* this component is going to take in item as props, changeOptions */
 export const FieldDisplay = ({item}) => {
     const renderOptions = () => {
         if (item) {

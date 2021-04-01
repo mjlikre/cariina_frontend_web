@@ -17,6 +17,7 @@ const IndividualField = ({ field, answerChange, parentIndex, key }) => {
       return (
         <LabelWrapper label={field.label}>
           <input
+          className = "small-text"
             type="text"
             value= {field.answer}
             onChange={(e) => {
@@ -30,6 +31,7 @@ const IndividualField = ({ field, answerChange, parentIndex, key }) => {
       return (
         <LabelWrapper label={field.label}>
           <textarea
+          className="big-text"
             rows="5"
             cols="60"
             name="description"
@@ -82,7 +84,7 @@ const IndividualField = ({ field, answerChange, parentIndex, key }) => {
                         handleMultiSelect(index);
                       }}
                     />
-                    {option}
+                    {"  " + option}
                   </div>
                 );
               })

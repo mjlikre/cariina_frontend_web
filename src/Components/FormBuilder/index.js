@@ -6,6 +6,7 @@ import FieldDisplay from "./FieldDisplay";
 import FieldEdit from "./FieldEdit";
 import addIcon from "./../../add.png";
 import deleteIcon from "./../../delete.png";
+import customize from "./../../customize.png";
 
 export const FormBuilder = ({ item, editForm }) => {
   const [formFields, setFormFields] = useState(null);
@@ -13,6 +14,12 @@ export const FormBuilder = ({ item, editForm }) => {
   const [formTitle, setFormTitle] = useState(0);
   const [selected, setSelected] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const [customization, setCustomization] = useState({
+    theme: null,
+    logo: null,
+    font_size: null 
+  })
+  const [customizeModal, setCustomizeModal] = useState(false)
   useEffect(() => {
     if (item) {
       setFormFields([...item.form_fields]);
@@ -40,8 +47,8 @@ export const FormBuilder = ({ item, editForm }) => {
     setFormFields(deletedData);
   };
   const submitChanges = () => {
-    let tempData = [...formFields]
-    tempData[selected] = tempValues
+    let tempData = [...formFields];
+    tempData[selected] = tempValues;
     setFormFields(tempData);
     if (formFields !== item.form_fields || formTitle !== item.form_title) {
       let data = {
@@ -106,7 +113,10 @@ export const FormBuilder = ({ item, editForm }) => {
           <div key={item.index}>
             {item.index === selected ? (
               <div className="edit-form-wrapper">
-                <div className="form-wrapper">
+                <div
+                  className="form-wrapper"
+                  style={{ borderLeft: "8px solid #0D3869" }}
+                >
                   <input
                     className="form-input-box"
                     type="text"
@@ -128,7 +138,11 @@ export const FormBuilder = ({ item, editForm }) => {
                   />
 
                   <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    <Dropdown.Toggle
+                      className="form-button"
+                      style={{ backgroundColor: "#1D63CD" }}
+                      id="dropdown-basic"
+                    >
                       {renderSelectedOption()}
                     </Dropdown.Toggle>
 
@@ -191,8 +205,18 @@ export const FormBuilder = ({ item, editForm }) => {
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
+                  {formFields.length > 1 ? (
+                    <button
+                      className="side-button"
+                      onClick={() => {
+                        handleDelete(index);
+                      }}
+                    >
+                      <img className="icon-img" src={deleteIcon} />
+                    </button>
+                  ) : null}
                 </div>
-                <div className="edit-form-button-area">
+                <div className="edit-form-button-area display-form-wrapper">
                   <button
                     className="side-button"
                     onClick={() => {
@@ -201,20 +225,15 @@ export const FormBuilder = ({ item, editForm }) => {
                   >
                     <img className="icon-img" src={addIcon} />
                   </button>
-                  <button
-                    className="side-button"
-                    onClick={() => {
-                      handleDelete(index);
-                    }}
-                  >
-                    <img className="icon-img" src={deleteIcon} />
+                  <button className="side-button" onClick={()=> {setCustomizeModal(true)}}>
+                    <img className="icon-img" src={customize} />
                   </button>
                 </div>
               </div>
             ) : (
               <div className="edit-form-wrapper">
                 <div
-                  className="form-wrapper"
+                  className="form-wrapper display-form-wrapper"
                   onClick={() => {
                     handleChange(item);
                   }}
@@ -246,6 +265,7 @@ export const FormBuilder = ({ item, editForm }) => {
       </h3>
       <div className="form-builder-wrapper">
         {renderFields()}
+
         <br></br>
         <button
           className="add-button"
@@ -259,6 +279,7 @@ export const FormBuilder = ({ item, editForm }) => {
 
       <Modal
         size="sm"
+        backdrop="static"
         show={showModal}
         onHide={() => setShowModal(false)}
         aria-labelledby="example-modal-sizes-title-sm"
@@ -271,6 +292,34 @@ export const FormBuilder = ({ item, editForm }) => {
         <Modal.Body>Your Changes has been saved!</Modal.Body>
         <Modal.Footer>
           <Button onClick={() => setShowModal(false)}>Close</Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal
+      backdrop="static"
+        show={customizeModal}
+        onHide={() => setCustomizeModal(false)}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title >
+            Edit customization
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div>
+            <label>Font size</label>
+          <input onChange = {e=> {setCustomization({...customization, font_size : e.target.value})}}/>
+          </div>
+          <div>
+          <label>Main Theme</label>
+          <input onChange = {e=> {setCustomization({...customization, theme : e.target.value})}}/>
+          </div>
+          <div>
+          <label>Logo</label>
+          <input onChange = {e=> {setCustomization({...customization, logo : e.target.value})}}/>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => setCustomizeModal(false)}>Close</Button>
         </Modal.Footer>
       </Modal>
     </>

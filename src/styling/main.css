@@ -78,6 +78,11 @@
     grid-gap: 10px;
     box-shadow: 0px 0px 5px #888888;
 }
+.display-form-wrapper:hover{
+    border: 1px solid black;
+    box-shadow: none;
+
+}
 
 .form-builder-wrapper {
     display: grid;
@@ -85,9 +90,10 @@
     text-align: center;
     margin: 30px auto;
 }
-.btn-success {
-    width: 150px;
+.form-button {
+    width: 180px;
     outline: none;
+    background-color: #1D63CD;
 }
 
 
@@ -136,13 +142,17 @@
 }
 .form-display{
     height: 250px;
-    border: 3px solid black;
+    border: transparent;
     margin: 20px 0;
     padding: 10px;
     width: 200px;
     border-radius: 10px;
     font-size: 25px;
+    box-shadow: 0px 0px 5px #888888;
 
+}
+.form-display:hover{
+    border: 1px solid black;
 }
 .edit-form-wrapper{
     display: grid;
@@ -154,8 +164,11 @@
     border-radius: 10px;
     padding: 15px;
     margin: 15px 0;
-    max-height: 160px;
+    max-height: 150px;
+    width: 70px;
     box-shadow: 0px 0px 5px #888888;
+    text-align: center;
+
 }
 .icon-img{
     max-width: 20px;
@@ -228,6 +241,34 @@
     box-shadow: 0px 0px 5px #888888;
 }
 
+.field-label {
+    text-align: left;
+    font-size: 25px;
+
+}
+.actual-field {
+    padding: 20px;
+    text-align: left;
+}
+.big-text {
+    width: 100%;
+    border-radius: 7px;
+    box-shadow: 0px 0px 3px #888888;
+    padding: 3px 8px
+}
+.small-text{
+    border-radius: 6px;
+    box-shadow: 0px 0px 3px #888888;
+    padding: 3px 8px;
+    border: 1px solid black
+}
+.add-button:hover {
+    background-color: #1D63CD;
+    color: white
+}
+.huge-icon-img {
+    width: 100px
+}
 
 input:focus,
 select:focus,

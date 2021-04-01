@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import IndividualField from "./IndividualField";
 import { connect } from "react-redux";
 import { fillForm } from "../../actions/forms";
+import Modal from "../Modal/Modal"
 const FormToFill = ({ form, fillForm }) => {
+  const [showModal, setShowModal] = useState(false)
   const [formFields, setFormFields] = useState([]);
   useEffect(() => {
     if (form) {
@@ -49,9 +51,12 @@ const FormToFill = ({ form, fillForm }) => {
 
   return (
     <>
-      {renderFormFields(formFields)}{" "}
+        <h1>{form.form_title}</h1>
+      {renderFormFields(formFields)}
+  
       <button
         className="add-button"
+        style = {{width: "200px", margin: "10px auto"}}
         onClick={() => {
             let data = {
                 form_id: form.form_id,
@@ -62,11 +67,16 @@ const FormToFill = ({ form, fillForm }) => {
                 },
               }
           fillForm(data);
-          console.log(data)
+          setShowModal(true)
         }}
       >
         Submit
       </button>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <Modal message = "Thank you for filling this form, your input is greatly appretiated" show = {showModal} setShow = {()=> {setShowModal(false)}} title= "Thank you!"/>
     </>
   );
 };

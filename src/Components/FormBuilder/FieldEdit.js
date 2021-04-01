@@ -8,7 +8,7 @@ const FieldEdit = ({ item, changeOption }) => {
   const [tempValue, setTempValue] = useState({});
   useEffect(() => {
     return () => {
-      let newData = [...item.options];
+      let newData = item.options;
       if (newData[selected] !== tempValue.option) {
         newData[selected] = tempValue.option;
         changeOption(newData);
