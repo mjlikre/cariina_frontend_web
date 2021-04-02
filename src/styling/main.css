@@ -26,8 +26,8 @@
 
 
 .navBar-color {
-    background-color: #e3f2fd;
-    opacity: 0.8
+    background-color: #0D3869;
+    color: white
 }
 
 .body-container {
@@ -301,8 +301,7 @@
 }
 .secondary-nav{
     height: 80px;
-    background-color: #e3f2fd;
-    opacity: 0.8;
+    background-color: #0D3869;;
     text-align: center;
 }
 
@@ -336,10 +335,10 @@
 .logout-button{
     border: transparent;
     background-color: transparent;
-    color: gray
+    color: rgba(255,255,255,.5);
 }
 .logout-button:hover{
-    color: black
+    color: rgba(255,255,255,.75);
 }
 input:focus,
 select:focus,
