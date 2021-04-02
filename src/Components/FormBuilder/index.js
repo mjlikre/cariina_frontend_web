@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Dropdown, Modal, Button } from "react-bootstrap";
-import { editForm } from "../../actions/forms";
+import { editForm, changeFormStyle } from "../../actions/forms";
 import FieldDisplay from "./FieldDisplay";
 import FieldEdit from "./FieldEdit";
 import addIcon from "./../../add.png";
 import deleteIcon from "./../../delete.png";
 import customize from "./../../customize.png";
-
-export const FormBuilder = ({ item, editForm }) => {
+import { ChromePicker } from "react-color";
+export const FormBuilder = ({ item, editForm, changeFormStyle }) => {
   const [formFields, setFormFields] = useState(null);
   const [tempValues, setTempValues] = useState(null);
   const [formTitle, setFormTitle] = useState(0);
   const [selected, setSelected] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [customization, setCustomization] = useState({
-    theme: null,
-    logo: null,
-    font_size: null 
-  })
-  const [customizeModal, setCustomizeModal] = useState(false)
+    theme: item.styles.theme,
+    logo: item.styles.logo,
+    button_color: item.styles.button_color,
+    highlight_color: item.styles.highlight_color,
+  });
+  const [customizeModal, setCustomizeModal] = useState(false);
   useEffect(() => {
     if (item) {
       setFormFields([...item.form_fields]);
@@ -89,6 +90,11 @@ export const FormBuilder = ({ item, editForm }) => {
     setTempValues(newField);
     setSelected(maxIndex + 1);
   };
+  const handleChangeComplete = (color, type) => {
+    let dataToChange = { ...customization };
+    dataToChange[type] = color.hex;
+    setCustomization(dataToChange);
+  };
   const renderSelectedOption = () => {
     if (tempValues.type === 0) {
       return "Short Answer";
@@ -115,7 +121,10 @@ export const FormBuilder = ({ item, editForm }) => {
               <div className="edit-form-wrapper">
                 <div
                   className="form-wrapper"
-                  style={{ borderLeft: "8px solid #0D3869" }}
+                  style={{
+                    border: "1px solid black",
+                    borderLeft: "8px solid #0D3869",
+                  }}
                 >
                   <input
                     className="form-input-box"
@@ -140,8 +149,8 @@ export const FormBuilder = ({ item, editForm }) => {
                   <Dropdown>
                     <Dropdown.Toggle
                       className="form-button"
-                      style={{ backgroundColor: "#1D63CD" }}
                       id="dropdown-basic"
+                      // style = {{backgroundColor: "#1D63CD;"}}
                     >
                       {renderSelectedOption()}
                     </Dropdown.Toggle>
@@ -225,7 +234,12 @@ export const FormBuilder = ({ item, editForm }) => {
                   >
                     <img className="icon-img" src={addIcon} />
                   </button>
-                  <button className="side-button" onClick={()=> {setCustomizeModal(true)}}>
+                  <button
+                    className="side-button"
+                    onClick={() => {
+                      setCustomizeModal(true);
+                    }}
+                  >
                     <img className="icon-img" src={customize} />
                   </button>
                 </div>
@@ -295,31 +309,85 @@ export const FormBuilder = ({ item, editForm }) => {
         </Modal.Footer>
       </Modal>
       <Modal
-      backdrop="static"
+        size="lg"
+        backdrop="static"
         show={customizeModal}
         onHide={() => setCustomizeModal(false)}
       >
         <Modal.Header closeButton>
-          <Modal.Title >
-            Edit customization
-          </Modal.Title>
+          <Modal.Title>Edit customization</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div>
-            <label>Font size</label>
-          <input onChange = {e=> {setCustomization({...customization, font_size : e.target.value})}}/>
-          </div>
-          <div>
-          <label>Main Theme</label>
-          <input onChange = {e=> {setCustomization({...customization, theme : e.target.value})}}/>
-          </div>
-          <div>
-          <label>Logo</label>
-          <input onChange = {e=> {setCustomization({...customization, logo : e.target.value})}}/>
+          <div className="style-wrapper">
+            <div>
+              <label>Highlight Color</label>
+              <div className="colorPicker">
+                <input
+                  className="sm-input-box"
+                  onChange={(e) => {
+                    setCustomization({
+                      ...customization,
+                      highlight_color: e.target.value,
+                    });
+                  }}
+                  value={customization.highlight_color}
+                />
+                <ChromePicker
+                  color={customization.highlight_color}
+                  onChangeComplete={(color) => {
+                    handleChangeComplete(color, "highlight_color");
+                  }}
+                />
+              </div>
+            </div>
+            <div>
+              <label>Background Color</label>
+              <div className="colorPicker">
+                <input
+                  className="sm-input-box"
+                  onChange={(e) => {
+                    setCustomization({
+                      ...customization,
+                      theme: e.target.value,
+                    });
+                  }}
+                  value={customization.theme}
+                />
+                <ChromePicker
+                  color={customization.theme}
+                  onChangeComplete={(color) => {
+                    handleChangeComplete(color, "theme");
+                  }}
+                />
+              </div>
+            </div>
+            <div>
+              <label>Logo</label>
+              <div>
+                <input
+                  className="sm-input-box"
+                  onChange={(e) => {
+                    setCustomization({
+                      ...customization,
+                      logo: e.target.value,
+                    });
+                  }}
+                  value={customization.logo}
+                />
+              </div>
+            </div>
           </div>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={() => setCustomizeModal(false)}>Close</Button>
+          <Button
+            onClick={() => {
+              changeFormStyle({ id: item.form_id, styles: customization });
+              setCustomizeModal(false);
+            }}
+          >
+            Save
+          </Button>
         </Modal.Footer>
       </Modal>
     </>
@@ -330,4 +398,6 @@ const mapStateToProps = ({ forms }) => ({
   form: forms.form,
 });
 
-export default connect(mapStateToProps, { editForm })(FormBuilder);
+export default connect(mapStateToProps, { editForm, changeFormStyle })(
+  FormBuilder
+);

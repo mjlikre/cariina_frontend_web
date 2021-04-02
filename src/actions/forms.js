@@ -98,7 +98,7 @@ export const fillForm = (data, done) => async (dispatch) => {
 };
 export const getFormToFill = (data, done) => async (dispatch) => {
   try {
-    const res = await axios.get(`http://localhost:3001/api/forms/getfill/${data}`);
+    const res = await axios.get(`http://localhost:3001/api/forms/get/${data}`);
     dispatch({ type: GET_FORM, payload: res.data.data });
     if (done) {
       done();
@@ -112,22 +112,7 @@ export const getFormToFill = (data, done) => async (dispatch) => {
     }
   }
 };
-export const getOneForm = (data, done) => async (dispatch) => {
-  try {
-    const res = await axios.get(`http://localhost:3001/api/forms/getedit/${data}`,  { headers: { authorization: localStorage.getItem("token") } });
-    dispatch({ type: GET_FORM, payload: res.data.data });
-    if (done) {
-      done();
-    }
-  } catch (error) {
-    if (!helperFunction(error, dispatch)) {
-      dispatch({
-        type: FORM_ERROR,
-        payload: "something went wrong, try again in a little bit",
-      });
-    }
-  }
-};
+
 
 export const editForm = (data, done) => async (dispatch) => {
   try {
@@ -155,7 +140,7 @@ export const fetchFilledForm = (data, done) => async (dispatch) => {
       headers: { authorization: localStorage.getItem("token") },
     });
     if (done) done();
-    dispatch({ type: FILLED_FORM, payload: res.data });
+    dispatch({ type: FILLED_FORM, payload: res.data.data });
   } catch (error) {
     if (!helperFunction(error, dispatch)) {
       dispatch({
@@ -182,6 +167,20 @@ export const deleteForm = (data, done) => async(dispatch)=> {
     }
   }
 }
-export const clearForm = (done) => async (dispatch) => {
-  dispatch({type: GET_FORM, payload: null})
+
+export const changeFormStyle = (data, done) => async(dispatch) => {
+  try{
+    const res = await axios.post(`http://localhost:3001/api/forms/style/${data.id}`, data.styles, {
+      headers: { authorization: localStorage.getItem("token") },
+    });
+    if (done) done();
+    dispatch({ type: GET_ALL_FORM, payload: res.data.data})
+  }catch(error) {
+    if (!helperFunction(error, dispatch)) {
+      dispatch({
+        type: FORM_ERROR,
+        payload: "something went wrong, try again in a little bit",
+      });
+    }
+  }
 }

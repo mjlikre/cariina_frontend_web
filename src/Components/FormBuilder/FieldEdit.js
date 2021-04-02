@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import deleteIcon from "../../delete.png";
-import doneIcon from "../../done.png";
+
 /* this component is going to take in item as props, changeOptions */
 const FieldEdit = ({ item, changeOption }) => {
   const [selected, setSelected] = useState();

@@ -6,6 +6,7 @@ import Modal from "../Modal/Modal"
 const FormToFill = ({ form, fillForm }) => {
   const [showModal, setShowModal] = useState(false)
   const [formFields, setFormFields] = useState([]);
+  const [selected, setSelected] = useState(null)
   useEffect(() => {
     if (form) {
       let data = [];
@@ -35,16 +36,32 @@ const FormToFill = ({ form, fillForm }) => {
   const renderFormFields = (formFields) => {
     if (formFields.length > 0) {
       return formFields.map((field, index) => {
-        return (
-          <div className="form-to-fill-wrapper" key={field.form_id}>
-            <IndividualField
-              field={field}
-              answerChange={handleAnswerChange}
-              parentIndex={index}
-              key={field.form_id}
-            />
-          </div>
-        );
+        if (selected === index) {
+          return (
+            <div className="form-to-fill-wrapper" key={field.form_id} style = {{border: "1px solid black", borderLeft: `8px solid ${form.styles.highlight_color}`}} >
+              <IndividualField
+                field={field}
+                answerChange={handleAnswerChange}
+                parentIndex={index}
+                key={field.form_id}
+                
+              />
+            </div>
+          );
+        }else{
+          return (
+            <div className="form-to-fill-wrapper" key={field.form_id} onClick = {()=> {setSelected(index)}} >
+              <IndividualField
+                field={field}
+                answerChange={handleAnswerChange}
+                parentIndex={index}
+                key={field.form_id}
+                
+              />
+            </div>
+          );
+        }
+        
       });
     }
   };
@@ -76,7 +93,8 @@ const FormToFill = ({ form, fillForm }) => {
       <br/>
       <br/>
       <br/>
-      <Modal message = "Thank you for filling this form, your input is greatly appretiated" show = {showModal} setShow = {()=> {setShowModal(false)}} title= "Thank you!"/>
+      <Modal message = "Thank you for filling this form, your input is greatly appretiated" show = {showModal} setShow = {()=> {setShowModal(false)}} title= "Thank you!">
+      </Modal>
     </>
   );
 };

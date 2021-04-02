@@ -1,20 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-
 export const FieldDisplay = ({item}) => {
     const renderOptions = () => {
         if (item) {
           return item.options.map((option, index) => {
-            
             return (
                 <div className = "form-options" key={index} >
-                    
                     <input className="form-checkbox" type="checkbox" disabled /> {option}
                 </div>
                 );
-            
-            
           });
         } else {
           return null;

@@ -46,7 +46,7 @@ const IndividualField = ({ field, answerChange, parentIndex, key }) => {
       return (
         <LabelWrapper label={field.label}>
           <Dropdown>
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
+            <Dropdown.Toggle className="form-button" id="dropdown-basic" style = {{backgroundColor: "#1D63CD;"}}>
               {field.answer}
             </Dropdown.Toggle>
 

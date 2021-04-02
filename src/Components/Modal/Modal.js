@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
-function SmallModal({ show, message, setShow, title, confirmFunction }) {
+function SmallModal({ show, message, setShow, title, confirmFunction, children }) {
   return (
     <div>
       <Modal
@@ -35,9 +35,9 @@ function SmallModal({ show, message, setShow, title, confirmFunction }) {
             
           ) : (
             <Button onClick={() => setShow()}>
-              <a style={{ color: "black" }} href="http://localhost:3000/main">
+              
                 Close
-              </a>
+              
             </Button>
           )}
         </Modal.Footer>

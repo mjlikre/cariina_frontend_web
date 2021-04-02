@@ -95,6 +95,9 @@
     outline: none;
     background-color: #1D63CD;
 }
+.form-button:hover{
+    background-color: #2773e4;
+}
 
 
 .form {
@@ -126,6 +129,8 @@
     border: transparent;
     border-radius: 10px;
     margin: 10px 20px 0 0;
+    background-color: #1D63CD;
+    color: white;
 }
 
 .create-form{
@@ -144,7 +149,6 @@
     height: 250px;
     border: transparent;
     margin: 20px 0;
-    padding: 10px;
     width: 200px;
     border-radius: 10px;
     font-size: 25px;
@@ -152,7 +156,7 @@
 
 }
 .form-display:hover{
-    border: 1px solid black;
+    border: 1px solid black
 }
 .edit-form-wrapper{
     display: grid;
@@ -206,14 +210,14 @@
     background-color: pink;
 }
 .big-icon-img{
-    max-width: 40px;
-    max-height: 40px;
+    max-width: 27px;
+    max-height: 27px;
     margin:auto;
 }
 .delete-button-big{
     margin: 0 2px;
-    height: 55px;
-    width: 55px;
+    height: 40px;
+    width: 40px;
     background-color: white;
     border-radius: 10px;
     border: transparent;
@@ -235,10 +239,25 @@
     padding: 15px 20px;
     width: 600px;
     margin: 5px auto;
-    border: 5px solid transparent;
+    border: 1px solid transparent;
     border-radius: 5px;
     display: grid;
     box-shadow: 0px 0px 5px #888888;
+    background: white;
+}
+.answer-wrapper{
+    text-align: center;
+    padding: 15px 20px;
+    width: 600px;
+    margin: 5px auto;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    display: grid;
+    box-shadow: 0px 0px 5px #888888;
+    background: white;
+}
+.form-to-fill-wrapper:hover{
+    border: 1px solid black;
 }
 
 .field-label {
@@ -263,13 +282,57 @@
     border: 1px solid black
 }
 .add-button:hover {
-    background-color: #1D63CD;
+    background-color: #2773e4;
     color: white
 }
 .huge-icon-img {
     width: 100px
 }
+.top-clickable{
+    height: 200px;
+    border: transparent;
+    border-radius: 10px;
+    padding: 10px;
+}
+.bottom-control{
+    height: 250px;
+    border-top: 1px solid black;
+    text-align: right;
+}
+.secondary-nav{
+    height: 80px;
+    background-color: #e3f2fd;
+    opacity: 0.8;
+    text-align: center;
+}
 
+.colorPicker{
+    display: grid;
+    grid-template-columns: 40% 40%;
+    grid-gap:3%
+}
+.style-wrapper{
+    display: grid;
+    grid-template-columns: 46% 46%;
+    grid-gap: 5%;
+}
+.sm-input-box{
+    height: 45px;
+    border-radius: 10px;
+    border:1px solid black
+}
+.control-button{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin: 0px 20px;
+    background-color: transparent;
+    border: none;
+    box-shadow: 0px 0px 3px #888888;
+}
+.control-button:hover{
+    border: 1px solid black
+}
 input:focus,
 select:focus,
 textarea:focus,
