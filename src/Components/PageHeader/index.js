@@ -15,7 +15,7 @@ const PageHeader = ({history, signout, children}) => {
           
            
           </Nav>
-          <button onClick ={()=> {signout()}}>Sign Out</button>
+          <button className = "logout-button" onClick ={()=> {signout()}}>Sign Out</button>
         </Navbar.Collapse>
       </Navbar>
 

@@ -333,6 +333,14 @@
 .control-button:hover{
     border: 1px solid black
 }
+.logout-button{
+    border: transparent;
+    background-color: transparent;
+    color: gray
+}
+.logout-button:hover{
+    color: black
+}
 input:focus,
 select:focus,
 textarea:focus,
