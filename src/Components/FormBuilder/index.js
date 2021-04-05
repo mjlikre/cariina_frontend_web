@@ -372,21 +372,7 @@ export const FormBuilder = ({ item, editForm, changeFormStyle }) => {
                 />
               </div>
             </div>
-            <div>
-              <label>Logo</label>
-              <div>
-                <input
-                  className="sm-input-box"
-                  onChange={(e) => {
-                    setCustomization({
-                      ...customization,
-                      logo: e.target.value,
-                    });
-                  }}
-                  value={customization.logo}
-                />
-              </div>
-            </div>
+            
           </div>
         </Modal.Body>
         <Modal.Footer>
