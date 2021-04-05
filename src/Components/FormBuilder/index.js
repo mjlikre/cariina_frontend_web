@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Dropdown, Modal, Button } from "react-bootstrap";
+import { Dropdown, Modal, Button, Tooltip, OverlayTrigger } from "react-bootstrap";
 import { editForm, changeFormStyle } from "../../actions/forms";
 import FieldDisplay from "./FieldDisplay";
 import FieldEdit from "./FieldEdit";
@@ -226,6 +226,10 @@ export const FormBuilder = ({ item, editForm, changeFormStyle }) => {
                   ) : null}
                 </div>
                 <div className="edit-form-button-area display-form-wrapper">
+                  <OverlayTrigger
+                    placement= "right"
+                    overlay = {<Tooltip id="button-tooltip-2">Add Question</Tooltip>}
+                  >
                   <button
                     className="side-button"
                     onClick={() => {
@@ -234,6 +238,12 @@ export const FormBuilder = ({ item, editForm, changeFormStyle }) => {
                   >
                     <img className="icon-img" src={addIcon} />
                   </button>
+                  </OverlayTrigger>
+                  <OverlayTrigger
+                    placement= "right"
+                    overlay = {<Tooltip id="button-tooltip-2">Edit Form Style</Tooltip>}
+                  >
+                  
                   <button
                     className="side-button"
                     onClick={() => {
@@ -242,6 +252,7 @@ export const FormBuilder = ({ item, editForm, changeFormStyle }) => {
                   >
                     <img className="icon-img" src={customize} />
                   </button>
+                  </OverlayTrigger>
                 </div>
               </div>
             ) : (

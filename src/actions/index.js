@@ -5,7 +5,7 @@ export const signup = (data, done) => async (dispatch) => {
   //signup. takes in 2 parameters, data (the data to sent to the api) and done(callback function). data is an object that has two keys, 
   // email and password
   try {
-    const res = await axios.post("http://localhost:3001/api/auth/signup", data);
+    const res = await axios.post("https://cariina-backend.herokuapp.com/api/auth/signup", data);
     dispatch({ type: AUTH_USER, payload: res.data.token });
     localStorage.setItem("token", res.data.token);
     
@@ -33,7 +33,7 @@ export const signin = (formProps, done) => async (dispatch) => {
    //signin. takes in 2 parameters, data (the data to sent to the api) and done(callback function). data is an object that has two keys, 
   // email and password
   try {
-    const res = await axios.post("http://localhost:3001/api/auth/signin", formProps);
+    const res = await axios.post("https://cariina-backend.herokuapp.com/api/auth/signin", formProps);
     localStorage.setItem("token", res.data.token);
     dispatch({ type: AUTH_USER, payload: res.data.token });
     if (done) {

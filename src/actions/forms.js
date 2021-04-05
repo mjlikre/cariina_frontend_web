@@ -36,7 +36,7 @@ export const makeForm = (data, done) => async (dispatch) => {
     */
   try {
     const res = await axios.post(
-      "http://localhost:3001/api/forms/create",
+      "https://cariina-backend.herokuapp.com/api/forms/create",
       data,
       {
         headers: { authorization: localStorage.getItem("token") },
@@ -60,7 +60,7 @@ export const getAllForm = (done) => async (dispatch) => {
   /* this action can be called to get all the forms that was created by the same user, no need of passing in id or anything alse, becase the token that is being sent in the headers 
     already includes it */
   try {
-    const res = await axios.get("http://localhost:3001/api/forms/get", {
+    const res = await axios.get("https://cariina-backend.herokuapp.com/api/forms/get", {
       headers: { authorization: localStorage.getItem("token") },
     });
     dispatch({ type: GET_ALL_FORM, payload: res.data.data });
@@ -80,7 +80,7 @@ export const fillForm = (data, done) => async (dispatch) => {
   console.log(data, "action")
   try {
     await axios.post(
-      `http://localhost:3001/api/forms/fill/${data.form_id}`,
+      `https://cariina-backend.herokuapp.com/api/forms/fill/${data.form_id}`,
       data.data,
       { headers: { authorization: localStorage.getItem("token") } }
     );
@@ -98,7 +98,7 @@ export const fillForm = (data, done) => async (dispatch) => {
 };
 export const getFormToFill = (data, done) => async (dispatch) => {
   try {
-    const res = await axios.get(`http://localhost:3001/api/forms/get/${data}`);
+    const res = await axios.get(`https://cariina-backend.herokuapp.com/api/forms/get/${data}`);
     dispatch({ type: GET_FORM, payload: res.data.data });
     if (done) {
       done();
@@ -117,7 +117,7 @@ export const getFormToFill = (data, done) => async (dispatch) => {
 export const editForm = (data, done) => async (dispatch) => {
   try {
     const res = await axios.post(
-      `http://localhost:3001/api/forms/edit/${data.id}`,
+      `https://cariina-backend.herokuapp.com/api/forms/edit/${data.id}`,
       data.data,
       { headers: { authorization: localStorage.getItem("token") } }
     );
@@ -136,7 +136,7 @@ export const editForm = (data, done) => async (dispatch) => {
 
 export const fetchFilledForm = (data, done) => async (dispatch) => {
   try {
-    const res = await axios.get(`http://localhost:3001/api/forms/filled/${data}`, {
+    const res = await axios.get(`https://cariina-backend.herokuapp.com/api/forms/filled/${data}`, {
       headers: { authorization: localStorage.getItem("token") },
     });
     if (done) done();
@@ -153,7 +153,7 @@ export const fetchFilledForm = (data, done) => async (dispatch) => {
 
 export const deleteForm = (data, done) => async(dispatch)=> {
   try{
-    const res = await axios.get(`http://localhost:3001/api/forms/delete/${data}`, {
+    const res = await axios.get(`https://cariina-backend.herokuapp.com/api/forms/delete/${data}`, {
       headers: { authorization: localStorage.getItem("token") },
     });
     if (done) done();
@@ -170,7 +170,7 @@ export const deleteForm = (data, done) => async(dispatch)=> {
 
 export const changeFormStyle = (data, done) => async(dispatch) => {
   try{
-    const res = await axios.post(`http://localhost:3001/api/forms/style/${data.id}`, data.styles, {
+    const res = await axios.post(`https://cariina-backend.herokuapp.com/api/forms/style/${data.id}`, data.styles, {
       headers: { authorization: localStorage.getItem("token") },
     });
     if (done) done();
